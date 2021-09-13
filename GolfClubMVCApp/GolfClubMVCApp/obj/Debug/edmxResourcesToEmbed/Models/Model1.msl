@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="mydatabaseModelStoreContainer" CdmEntityContainer="GolfClubEntities">
+    <EntitySetMapping Name="tbl_club">
+      <EntityTypeMapping TypeName="mydatabaseModel.tbl_club">
+        <MappingFragment StoreEntitySet="tbl_club">
+          <ScalarProperty Name="ClubID" ColumnName="ClubID" />
+          <ScalarProperty Name="ClubLocation" ColumnName="ClubLocation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Members">
+      <EntityTypeMapping TypeName="mydatabaseModel.tbl_Members">
+        <MappingFragment StoreEntitySet="tbl_Members">
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="MembershipType" ColumnName="MembershipType" />
+          <ScalarProperty Name="ClubID" ColumnName="ClubID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_delete_member" FunctionName="mydatabaseModel.Store.sp_delete_member" />
+    <FunctionImportMapping FunctionImportName="sp_insert_members" FunctionName="mydatabaseModel.Store.sp_insert_members" />
+    <FunctionImportMapping FunctionImportName="sp_update_members" FunctionName="mydatabaseModel.Store.sp_update_members" />
+    <FunctionImportMapping FunctionImportName="sp_view_members" FunctionName="mydatabaseModel.Store.sp_view_members">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="mydatabaseModel.sp_view_members_Result">
+          <ScalarProperty Name="ClubID" ColumnName="ClubID" />
+          <ScalarProperty Name="ClubLocation" ColumnName="ClubLocation" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="MembershipType" ColumnName="MembershipType" />
+          <ScalarProperty Name="ClubID1" ColumnName="ClubID1" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

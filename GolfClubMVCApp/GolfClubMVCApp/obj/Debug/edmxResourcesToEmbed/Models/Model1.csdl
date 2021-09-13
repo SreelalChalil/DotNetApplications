@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="mydatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tbl_club">
+    <Key>
+      <PropertyRef Name="ClubID" />
+    </Key>
+    <Property Name="ClubID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClubLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_Members" Relationship="Self.FK__tbl_Membe__ClubI__398D8EEE" FromRole="tbl_club" ToRole="tbl_Members" />
+  </EntityType>
+  <EntityType Name="tbl_Members">
+    <Key>
+      <PropertyRef Name="MemberID" />
+    </Key>
+    <Property Name="MemberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MemberName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="MembershipType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ClubID" Type="Int32" />
+    <NavigationProperty Name="tbl_club" Relationship="Self.FK__tbl_Membe__ClubI__398D8EEE" FromRole="tbl_Members" ToRole="tbl_club" />
+  </EntityType>
+  <Association Name="FK__tbl_Membe__ClubI__398D8EEE">
+    <End Role="tbl_club" Type="Self.tbl_club" Multiplicity="0..1" />
+    <End Role="tbl_Members" Type="Self.tbl_Members" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_club">
+        <PropertyRef Name="ClubID" />
+      </Principal>
+      <Dependent Role="tbl_Members">
+        <PropertyRef Name="ClubID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GolfClubEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tbl_club" EntityType="Self.tbl_club" />
+    <EntitySet Name="tbl_Members" EntityType="Self.tbl_Members" />
+    <AssociationSet Name="FK__tbl_Membe__ClubI__398D8EEE" Association="Self.FK__tbl_Membe__ClubI__398D8EEE">
+      <End Role="tbl_club" EntitySet="tbl_club" />
+      <End Role="tbl_Members" EntitySet="tbl_Members" />
+    </AssociationSet>
+    <FunctionImport Name="sp_delete_member">
+      <Parameter Name="MemberID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_insert_members">
+      <Parameter Name="MemberID" Mode="InOut" Type="Int32" />
+      <Parameter Name="MemberName" Mode="In" Type="String" />
+      <Parameter Name="Gender" Mode="In" Type="String" />
+      <Parameter Name="MembershipType" Mode="In" Type="String" />
+      <Parameter Name="ClubID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_update_members">
+      <Parameter Name="MemberID" Mode="In" Type="Int32" />
+      <Parameter Name="MemberName" Mode="In" Type="String" />
+      <Parameter Name="Gender" Mode="In" Type="String" />
+      <Parameter Name="MembershipType" Mode="In" Type="String" />
+      <Parameter Name="ClubID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_view_members" ReturnType="Collection(mydatabaseModel.sp_view_members_Result)" />
+  </EntityContainer>
+  <ComplexType Name="sp_view_members_Result">
+    <Property Type="Int32" Name="ClubID" Nullable="false" />
+    <Property Type="String" Name="ClubLocation" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="MemberID" Nullable="false" />
+    <Property Type="String" Name="MemberName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Gender" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="MembershipType" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="ClubID1" Nullable="true" />
+  </ComplexType>
+</Schema>

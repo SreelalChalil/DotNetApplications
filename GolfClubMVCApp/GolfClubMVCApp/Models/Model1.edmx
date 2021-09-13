@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="mydatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_club">
+          <Key>
+            <PropertyRef Name="ClubID" />
+          </Key>
+          <Property Name="ClubID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClubLocation" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_Members">
+          <Key>
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Name="MemberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberName" Type="varchar" MaxLength="50" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" />
+          <Property Name="MembershipType" Type="varchar" MaxLength="20" />
+          <Property Name="ClubID" Type="int" />
+        </EntityType>
+        <Association Name="FK__tbl_Membe__ClubI__398D8EEE">
+          <End Role="tbl_club" Type="Self.tbl_club" Multiplicity="0..1" />
+          <End Role="tbl_Members" Type="Self.tbl_Members" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_club">
+              <PropertyRef Name="ClubID" />
+            </Principal>
+            <Dependent Role="tbl_Members">
+              <PropertyRef Name="ClubID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_delete_member" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MemberID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_insert_members" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MemberID" Type="int" Mode="InOut" />
+          <Parameter Name="MemberName" Type="varchar" Mode="In" />
+          <Parameter Name="Gender" Type="varchar" Mode="In" />
+          <Parameter Name="MembershipType" Type="varchar" Mode="In" />
+          <Parameter Name="ClubID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_update_members" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MemberID" Type="int" Mode="In" />
+          <Parameter Name="MemberName" Type="varchar" Mode="In" />
+          <Parameter Name="Gender" Type="varchar" Mode="In" />
+          <Parameter Name="MembershipType" Type="varchar" Mode="In" />
+          <Parameter Name="ClubID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_view_members" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="mydatabaseModelStoreContainer">
+          <EntitySet Name="tbl_club" EntityType="Self.tbl_club" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Members" EntityType="Self.tbl_Members" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tbl_Membe__ClubI__398D8EEE" Association="Self.FK__tbl_Membe__ClubI__398D8EEE">
+            <End Role="tbl_club" EntitySet="tbl_club" />
+            <End Role="tbl_Members" EntitySet="tbl_Members" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="mydatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_club">
+          <Key>
+            <PropertyRef Name="ClubID" />
+          </Key>
+          <Property Name="ClubID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClubLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_Members" Relationship="Self.FK__tbl_Membe__ClubI__398D8EEE" FromRole="tbl_club" ToRole="tbl_Members" />
+        </EntityType>
+        <EntityType Name="tbl_Members">
+          <Key>
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Name="MemberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MembershipType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ClubID" Type="Int32" />
+          <NavigationProperty Name="tbl_club" Relationship="Self.FK__tbl_Membe__ClubI__398D8EEE" FromRole="tbl_Members" ToRole="tbl_club" />
+        </EntityType>
+        <Association Name="FK__tbl_Membe__ClubI__398D8EEE">
+          <End Role="tbl_club" Type="Self.tbl_club" Multiplicity="0..1" />
+          <End Role="tbl_Members" Type="Self.tbl_Members" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_club">
+              <PropertyRef Name="ClubID" />
+            </Principal>
+            <Dependent Role="tbl_Members">
+              <PropertyRef Name="ClubID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GolfClubEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_club" EntityType="Self.tbl_club" />
+          <EntitySet Name="tbl_Members" EntityType="Self.tbl_Members" />
+          <AssociationSet Name="FK__tbl_Membe__ClubI__398D8EEE" Association="Self.FK__tbl_Membe__ClubI__398D8EEE">
+            <End Role="tbl_club" EntitySet="tbl_club" />
+            <End Role="tbl_Members" EntitySet="tbl_Members" />
+          </AssociationSet>
+          <FunctionImport Name="sp_delete_member">
+            <Parameter Name="MemberID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_insert_members">
+            <Parameter Name="MemberID" Mode="InOut" Type="Int32" />
+            <Parameter Name="MemberName" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="String" />
+            <Parameter Name="MembershipType" Mode="In" Type="String" />
+            <Parameter Name="ClubID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_update_members">
+            <Parameter Name="MemberID" Mode="In" Type="Int32" />
+            <Parameter Name="MemberName" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="String" />
+            <Parameter Name="MembershipType" Mode="In" Type="String" />
+            <Parameter Name="ClubID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_view_members" ReturnType="Collection(mydatabaseModel.sp_view_members_Result)" />
+        </EntityContainer>
+        <ComplexType Name="sp_view_members_Result">
+          <Property Type="Int32" Name="ClubID" Nullable="false" />
+          <Property Type="String" Name="ClubLocation" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="MemberID" Nullable="false" />
+          <Property Type="String" Name="MemberName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="MembershipType" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="ClubID1" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="mydatabaseModelStoreContainer" CdmEntityContainer="GolfClubEntities">
+          <EntitySetMapping Name="tbl_club">
+            <EntityTypeMapping TypeName="mydatabaseModel.tbl_club">
+              <MappingFragment StoreEntitySet="tbl_club">
+                <ScalarProperty Name="ClubID" ColumnName="ClubID" />
+                <ScalarProperty Name="ClubLocation" ColumnName="ClubLocation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Members">
+            <EntityTypeMapping TypeName="mydatabaseModel.tbl_Members">
+              <MappingFragment StoreEntitySet="tbl_Members">
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="MembershipType" ColumnName="MembershipType" />
+                <ScalarProperty Name="ClubID" ColumnName="ClubID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_delete_member" FunctionName="mydatabaseModel.Store.sp_delete_member" />
+          <FunctionImportMapping FunctionImportName="sp_insert_members" FunctionName="mydatabaseModel.Store.sp_insert_members" />
+          <FunctionImportMapping FunctionImportName="sp_update_members" FunctionName="mydatabaseModel.Store.sp_update_members" />
+          <FunctionImportMapping FunctionImportName="sp_view_members" FunctionName="mydatabaseModel.Store.sp_view_members">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="mydatabaseModel.sp_view_members_Result">
+                <ScalarProperty Name="ClubID" ColumnName="ClubID" />
+                <ScalarProperty Name="ClubLocation" ColumnName="ClubLocation" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="MembershipType" ColumnName="MembershipType" />
+                <ScalarProperty Name="ClubID1" ColumnName="ClubID1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

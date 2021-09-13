@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="mydatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_club">
+    <Key>
+      <PropertyRef Name="ClubID" />
+    </Key>
+    <Property Name="ClubID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClubLocation" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbl_Members">
+    <Key>
+      <PropertyRef Name="MemberID" />
+    </Key>
+    <Property Name="MemberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MemberName" Type="varchar" MaxLength="50" />
+    <Property Name="Gender" Type="varchar" MaxLength="10" />
+    <Property Name="MembershipType" Type="varchar" MaxLength="20" />
+    <Property Name="ClubID" Type="int" />
+  </EntityType>
+  <Association Name="FK__tbl_Membe__ClubI__398D8EEE">
+    <End Role="tbl_club" Type="Self.tbl_club" Multiplicity="0..1" />
+    <End Role="tbl_Members" Type="Self.tbl_Members" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_club">
+        <PropertyRef Name="ClubID" />
+      </Principal>
+      <Dependent Role="tbl_Members">
+        <PropertyRef Name="ClubID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="sp_delete_member" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MemberID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_insert_members" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MemberID" Type="int" Mode="InOut" />
+    <Parameter Name="MemberName" Type="varchar" Mode="In" />
+    <Parameter Name="Gender" Type="varchar" Mode="In" />
+    <Parameter Name="MembershipType" Type="varchar" Mode="In" />
+    <Parameter Name="ClubID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_update_members" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MemberID" Type="int" Mode="In" />
+    <Parameter Name="MemberName" Type="varchar" Mode="In" />
+    <Parameter Name="Gender" Type="varchar" Mode="In" />
+    <Parameter Name="MembershipType" Type="varchar" Mode="In" />
+    <Parameter Name="ClubID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_view_members" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="mydatabaseModelStoreContainer">
+    <EntitySet Name="tbl_club" EntityType="Self.tbl_club" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Members" EntityType="Self.tbl_Members" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__tbl_Membe__ClubI__398D8EEE" Association="Self.FK__tbl_Membe__ClubI__398D8EEE">
+      <End Role="tbl_club" EntitySet="tbl_club" />
+      <End Role="tbl_Members" EntitySet="tbl_Members" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
